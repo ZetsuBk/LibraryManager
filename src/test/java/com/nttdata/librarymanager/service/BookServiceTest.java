@@ -44,10 +44,6 @@ public class BookServiceTest {
         this.bookService = new BookService(bookRepository);
     }
 
-    @Test
-    public void testRepo(){
-        bookService.getBookRepository();
-    }
 
     @Test
     public void testGetAll() {
@@ -83,7 +79,7 @@ public class BookServiceTest {
         bookService.add(newBook);
 
         verify(bookRepository, times(1)).save(newBook);
-        
+
     }
 
     @Test

@@ -42,11 +42,6 @@ public class AuthorServiceTest {
     }
 
     @Test
-    public void GetterRepo(){
-        authorService.getAuthorRepository();
-    }
-
-    @Test
     public void testGetAll() {
         when(authorRepository.findAll()).thenReturn(Arrays.asList(author1, author2));
         List<Author> authors = authorService.getAll();

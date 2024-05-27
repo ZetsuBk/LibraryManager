@@ -4,54 +4,72 @@ import com.nttdata.librarymanager.model.Author;
 import com.nttdata.librarymanager.model.Book;
 import com.nttdata.librarymanager.repository.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * A service class to authors.
+ */
 @Service
-@Getter
-@Setter
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    AuthorService(AuthorRepository authorRepository) {
+    /**
+     * Constructs an instance of AuthorService.
+     * @param authorRepository The repository for author data.
+     */
+    public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
+    /**
+     * Retrieves all authors.
+     * @return A list of authors.
+     */
     public List<Author> getAll() {
         return authorRepository.findAll();
     }
 
+    /**
+     * Retrieves an author by ID.
+     * @param id The ID of the author to retrieve.
+     * @return The author.
+     * @throws EntityNotFoundException If the author with the given ID is not found.
+     */
     public Author getById(Long id) throws EntityNotFoundException {
-        Optional<Author> authorOptional = authorRepository.findById(id);
-        if (authorOptional.isPresent()) {
-            return authorOptional.get();
-        }
-        throw new EntityNotFoundException("Author id=" + id + " not found");
+        return authorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
     }
 
-    public void add(Author author) {
-        author.setId(null);
-        authorRepository.save(author);
+    /**
+     * Adds a new author.
+     * @param author The author to add.
+     * @return The added author.
+     */
+    public Author add(Author author) {
+        return authorRepository.save(author);
     }
 
+    /**
+     * Removes an author by ID.
+     * @param id The ID of the author to remove.
+     * @throws EntityNotFoundException If the author with the given ID is not found.
+     */
     public void remove(Long id) throws EntityNotFoundException {
         getById(id);
         authorRepository.deleteById(id);
     }
 
+    /**
+     * Retrieves a mapping of author IDs to their book lists.
+     * @return A map where the key is the author ID and the value is a list of books authored by that author.
+     */
     public Map<Long, List<Book>> getBooksByAuthor() {
-        return getAll().stream().collect(Collectors.toMap(
-                Author::getId,
-                Author::getBookList
-        ));
+        return authorRepository.findAll().stream()
+                .collect(Collectors.toMap(Author::getId, Author::getBookList));
     }
-
-
 }
