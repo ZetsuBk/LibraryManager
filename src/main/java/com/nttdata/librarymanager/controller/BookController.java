@@ -95,7 +95,7 @@ public class BookController {
         return new ResponseEntity<>(bookService.getBookByGenre(), HttpStatus.OK);
     }
 
-    @GetMapping
+    @PostMapping("/file")
     public ResponseEntity<Message> readJson(@RequestBody List<Book> books) {
         bookService.saveList(books);
         return new ResponseEntity<>(message.setMessage("json file was add successfully "), HttpStatus.OK);
