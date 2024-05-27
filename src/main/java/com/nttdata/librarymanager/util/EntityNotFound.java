@@ -1,4 +1,4 @@
-package com.nttdata.libraryManager.util;
+package com.nttdata.librarymanager.util;
 
 public class EntityNotFound extends Exception {
     EntityNotFound(String message){

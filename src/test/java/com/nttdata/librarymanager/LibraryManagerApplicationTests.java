@@ -1,4 +1,4 @@
-package com.nttdata.libraryManager;
+package com.nttdata.librarymanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

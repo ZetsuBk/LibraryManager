@@ -1,6 +1,6 @@
-package com.nttdata.libraryManager.repository;
+package com.nttdata.librarymanager.repository;
 
-import com.nttdata.libraryManager.model.Author;
+import com.nttdata.librarymanager.model.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
